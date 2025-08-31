@@ -1,0 +1,1754 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bantuan Hukum - Saha Legal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #2c3e50;
+            --primary-light: #34495e;
+            --primary-dark: #1a252f;
+            --secondary: #3498db;
+            --secondary-light: #5dade2;
+            --secondary-dark: #2e86c1;
+            --accent: #e74c3c;
+            --text: #2c3e50;
+            --text-light: #7f8c8d;
+            --background: #ecf0f1;
+            --card-bg: #ffffff;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --radius: 12px;
+        }
+        
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            padding-bottom: 70px;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 100%;
+            padding: 15px;
+            position: relative;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-radius: 0 0 var(--radius) var(--radius);
+        }
+        
+        .app-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .app-subtitle {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+        
+        .search-bar {
+            display: flex;
+            margin: 15px 0;
+        }
+        
+        .search-bar input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 25px 0 0 25px;
+            font-size: 16px;
+            box-shadow: var(--shadow);
+            background: rgba(255, 255, 255, 0.9);
+        }
+        
+        .search-bar button {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 0 25px 25px 0;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: var(--shadow);
+            transition: background 0.3s;
+        }
+        
+        .search-bar button:active {
+            background: var(--secondary-dark);
+        }
+        
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .category-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .category-card:active {
+            transform: scale(0.97);
+        }
+        
+        .category-card i {
+            font-size: 28px;
+            color: var(--secondary);
+            margin-bottom: 10px;
+            transition: transform 0.3s;
+        }
+        
+        .category-card:hover i {
+            transform: translateY(-5px);
+        }
+        
+        .category-card h3 {
+            font-size: 16px;
+            color: var(--text);
+            margin-bottom: 5px;
+        }
+        
+        .category-card p {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+        
+        .section-title {
+            margin: 25px 0 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+            color: var(--primary);
+            font-size: 1.2rem;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: var(--secondary);
+        }
+        
+        .section-title i {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+        
+        .back-button {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            font-size: 16px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: background 0.3s;
+            box-shadow: var(--shadow);
+        }
+        
+        .back-button:hover {
+            background: var(--secondary-dark);
+        }
+        
+        .back-button i {
+            margin-right: 8px;
+        }
+        
+        .popular-cases {
+            display: flex;
+            overflow-x: auto;
+            gap: 15px;
+            padding: 5px 0 20px;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .popular-cases::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .case-card {
+            flex: 0 0 auto;
+            width: 200px;
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 15px;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-top: 3px solid var(--secondary);
+        }
+        
+        .case-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .case-card h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+        
+        .case-card p {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+        
+        .law-list {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+        }
+        
+        .law-item {
+            border-bottom: 1px solid #eee;
+        }
+        
+        .law-header {
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .law-header:hover {
+            background: #f9f9f9;
+        }
+        
+        .law-header h3 {
+            font-size: 16px;
+            color: var(--text);
+        }
+        
+        .law-content {
+            padding: 0 16px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            background: #f9f9f9;
+        }
+        
+        .law-content.active {
+            max-height: 500px;
+            padding: 16px;
+            overflow-y: auto;
+        }
+        
+        .law-article {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #ddd;
+            position: relative;
+        }
+        
+        .law-article:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .bottom-navbar {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            background: white;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            border-radius: var(--radius) var(--radius) 0 0;
+            justify-content: space-around;
+        }
+        
+        .nav-item {
+            flex: 1;
+            text-align: center;
+            padding: 12px 0;
+            color: #757575;
+            font-size: 12px;
+            transition: color 0.3s;
+            cursor: pointer;
+            max-width: 33.33%;
+        }
+        
+        .nav-item.active {
+            color: var(--secondary);
+        }
+        
+        .nav-item i {
+            font-size: 20px;
+            display: block;
+            margin: 0 auto 5px;
+            transition: transform 0.3s;
+        }
+        
+        .nav-item.active i {
+            transform: translateY(-3px);
+        }
+        
+        .page {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .page.active {
+            display: block;
+            opacity: 1;
+        }
+        
+        .bookmark-btn {
+            background: none;
+            border: none;
+            color: #bbb;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+        
+        .bookmark-btn.active {
+            color: var(--accent);
+        }
+        
+        .bookmark-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Animasi untuk halaman */
+        @keyframes fadeIn {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .page.active {
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .category-title {
+            text-align: center;
+            margin: 10px 0 20px;
+            color: var(--primary);
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .category-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--secondary);
+            border-radius: 3px;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-light);
+        }
+        
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 15px;
+            color: #ddd;
+        }
+        
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--primary);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50') translateY(0);
+        }
+        
+        
+        .law-article h4 {
+            color: var(--primary);
+            margin-bottom: 8px;
+            padding-right: 30px;
+        }
+        
+        .law-article p {
+            color: var(--text-light);
+            line-height: 1.5;
+            padding-right: 30px;
+        }
+        
+        .welcome-banner {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%);
+            border-radius: var(--radius);
+            padding: 15px;
+            margin: 15px 0;
+            color: white;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+        
+        .welcome-banner h2 {
+            margin-bottom: 5px;
+            font-size: 1.2rem;
+        }
+        
+        .welcome-banner p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #ddd, transparent);
+            margin: 20px 0;
+            width: 100%;
+        }
+        
+        .category-number {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background: var(--secondary);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            margin-right: 10px;
+            font-size: 12px;
+        }
+        
+        .case-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .case-item {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .case-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .case-item h3 {
+            font-size: 16px;
+            color: var(--text);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .case-item p {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+        
+        .case-dropdown {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+        
+        .case-dropdown.active {
+            max-height: 500px;
+        }
+        
+        .case-dropdown-content {
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+        .search-results {
+    margin-top: 20px;
+}
+
+.search-result-item {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--secondary);
+}
+
+.search-result-item h3 {
+    color: var(--primary);
+    margin-bottom: 10px;
+}
+
+.search-result-item p {
+    color: var(--text-light);
+    margin-bottom: 10px;
+}
+
+.result-content {
+    font-style: italic;
+    border-left: 2px solid #eee;
+    padding-left: 10px;
+}
+
+.view-button {
+    background: var(--secondary);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.view-button:hover {
+    background: var(--secondary-dark);
+}
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="app-title">Bantuku</div>
+        <div class="app-subtitle">Bantu Hukum untuk Masyarakat</div>
+        <div class="search-bar">
+            <input type="text" placeholder="Cari hukum atau UU tertentu..." id="mainSearch">
+            <button onclick="searchContent()"><i class="fas fa-search"></i></button>
+        </div>
+    </header>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-navbar">
+        <div class="nav-item active" data-page="dashboard">
+            <i class="fas fa-home"></i>
+            <span>Beranda</span>
+        </div>
+        <div class="nav-item" data-page="laws">
+            <i class="fas fa-book"></i>
+            <span>Peraturan</span>
+        </div>
+        <div class="nav-item" data-page="bookmarks">
+            <i class="fas fa-bookmark"></i>
+            <span>Disimpan</span>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Dashboard Page -->
+    <div id="dashboard" class="page active">
+        <div class="container">
+            <div class="welcome-banner">
+                <h2>Selamat Datang di Bantuku</h2>
+                <p>Temukan informasi hukum yang Anda butuhkan dengan mudah</p>
+            </div>
+            
+            <h2 class="section-title"><i class="fas fa-balance-scale"></i> Kategori Kasus Hukum</h2>
+            <div class="category-grid">
+                <div class="category-card" data-category="perdata">
+                    <i class="fas fa-handshake"></i>
+                    <h3><span class="category-number">1</span> Perdata</h3>
+                    <p>Sengketa tanah, warisan, hutang piutang</p>
+                </div>
+                <div class="category-card" data-category="pidana">
+                    <i class="fas fa-gavel"></i>
+                    <h3><span class="category-number">2</span> Pidana</h3>
+                    <p>Pencurian, penganiayaan, penipuan</p>
+                </div>
+                <div class="category-card" data-category="ketenagakerjaan">
+                    <i class="fas fa-briefcase"></i>
+                    <h3><span class="category-number">3</span> Ketenagakerjaan</h3>
+                    <p>PHK, upah, hak pekerja</p>
+                </div>
+                <div class="category-card" data-category="konsumen">
+                    <i class="fas fa-shopping-cart"></i>
+                    <h3><span class="category-number">4</span> Konsumen</h3>
+                    <p>Barang cacat, gugatan konsumen</p>
+                </div>
+                <div class="category-card" data-category="keluarga">
+                    <i class="fas fa-heart"></i>
+                    <h3><span class="category-number">5</span> Keluarga</h3>
+                    <p>Perceraian, hak asuh anak</p>
+                </div>
+                <div class="category-card" data-category="properti">
+                    <i class="fas fa-building"></i>
+                    <h3><span class="category-number">6</span> Properti</h3>
+                    <p>Sertifikat, sengketa batas tanah</p>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <h2 class="section-title"><i class="fas fa-star"></i> Kasus Populer</h2>
+            <div class="popular-cases">
+                <div class="case-card" data-case="sengketa-tanah">
+                    <h3>Sengketa Tanah</h3>
+                    <p>Penyelesaian konflik kepemilikan tanah</p>
+                </div>
+                <div class="case-card" data-case="perceraian">
+                    <h3>Perceraian</h3>
+                    <p>Hukum tentang perceraian dan pembagian harta</p>
+                </div>
+                <div class="case-card" data-case="hutang-piutang">
+                    <h3>Pinjaman Hutang</h3>
+                    <p>Penyelesaian sengketa hutang piutang</p>
+                </div>
+                <div class="case-card" data-case="phk">
+                    <h3>PHK</h3>
+                    <p>Hak dan kewajiban terkait Pemutusan Hubungan Kerja</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Category Detail Page -->
+    <div id="category-detail" class="page">
+        <div class="container">
+            <button class="back-button" id="backToDashboard">
+                <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+            </button>
+            <h2 class="category-title" id="categoryDetailTitle">Detail Kategori</h2>
+            
+            <div class="case-list" id="categoryCases">
+                <!-- Kasus-kasus akan diisi secara dinamis berdasarkan kategori -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Laws Page -->
+    <div id="laws" class="page">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-book"></i> Daftar Peraturan Perundang-undangan</h2>
+            
+        <div class="search-bar">
+            <input type="text" id="searchLaws" placeholder="Cari berdasarkan nomor, tahun, atau kata kunci..." onkeyup="searchLaws()">
+            <button onclick="searchLaws()"><i class="fas fa-search"></i></button>
+        </div>
+            
+            <div class="law-list" id="lawsContent">
+                <!-- Daftar UU akan diisi secara dinamis -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Bookmarks Page -->
+    <div id="bookmarks" class="page">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-bookmark"></i> Pasal yang Disimpan</h2>
+            
+            <div class="law-list" id="bookmarksContent">
+                <!-- Bookmark akan diisi secara dinamis -->
+            </div>
+            
+            <div class="empty-state" id="emptyBookmarks" style="display: none;">
+                <i class="far fa-bookmark"></i>
+                <h3>Belum ada pasal yang disimpan</h3>
+                <p>Simpan pasal-pasal penting untuk mengaksesnya dengan mudah di sini</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data untuk setiap kategori
+        const categoryData = {
+            perdata: {
+                title: "Hukum Perdata",
+                cases: [
+                    {
+                        title: "Sengketa Tanah",
+                        description: "Penyelesaian konflik kepemilikan tanah",
+                        articles: [
+                            {
+                                title: "KUHPer Pasal 1166",
+                                content: "Hak kebendaan yang memberikan kenikmatan atas suatu benda seolah-olah benda itu kepunyaan sendiri."
+                            },
+                            {
+                                title: "UU No. 5 Tahun 1960 (UUPA) Pasal 19",
+                                content: "Pendaftaran tanah diselenggarakan untuk memberikan kepastian hukum dan perlindungan hukum kepada pemegang hak atas suatu bidang tanah, satuan rumah susun, dan hak-hak lain yang terdaftar."
+                            },
+                            {
+                                title: "KUHPer Pasal 570",
+                                content: "Hak milik adalah hak untuk menikmati kegunaan suatu kebendaan dengan leluasa, dan untuk berbuat bebas terhadap kebendaan itu dengan kedaulatan sepenuhnya, asal tidak bertentangan dengan undang-undang atau peraturan umum yang ditetapkan oleh suatu kekuasaan yang berhak menetapkannya, dan tidak mengganggu hak-hak orang lain."
+                            }
+                        ]
+                    },
+                    {
+                        title: "Hutang-Piutang",
+                        description: "Penyelesaian sengketa hutang piutang",
+                        articles: [
+                            {
+                                title: "KUHPer Pasal 1754",
+                                content: "Perjanjian pinjam meminjam adalah perjanjian dengan mana pihak yang satu memberikan kepada pihak yang lain suatu jumlah tertentu barang-barang yang habis karena pemakaian."
+                            },
+                            {
+                                title: "KUHPer Pasal 1755",
+                                content: "Dengan perjanjian pinjam meminjam, pihak yang meminjamkan mengalihkan hak milik atas sejumlah uang atau atas barang lainnya yang habis terpakai kepada pihak yang meminjam, dengan syarat bahwa pihak yang meminjam ini akan mengembalikan sejumlah yang sama dari jenis dan mutu yang sama pula."
+                            }
+                        ]
+                    },
+                    {
+                        title: "Waris",
+                        description: "Pembagian harta warisan",
+                        articles: [
+                            {
+                                title: "KUHPer Pasal 832",
+                                content: "Warisan meliputi semua hak dan kewajiban seseorang yang meninggal dunia."
+                            },
+                            {
+                                title: "KUHPer Pasal 852",
+                                content: "Anak-anak atau keturunan yang sah adalah ahli waris menurut undang-undang dari orang tua, kakek, nenek, atau semua keluarga sedarah mereka selanjutnya dalam garis lurus ke atas, tanpa pembedaan jenis kelamin atau kelahiran yang lebih dulu."
+                            }
+                        ]
+                    }
+                ]
+            },
+            pidana: {
+                title: "Hukum Pidana",
+                cases: [
+                    {
+                        title: "Pencurian",
+                        description: "Tindak pidana pencurian",
+                        articles: [
+                            {
+                                title: "KUHP Pasal 362",
+                                content: "Barangsiapa mengambil sesuatu benda yang seluruhnya atau sebagian kepunyaan orang lain, dengan maksud untuk dimiliki secara melawan hukum, diancam karena pencurian dengan pidana penjara paling lama lima tahun atau pidana denda paling banyak sembilan ratus rupiah."
+                            },
+                            {
+                                title: "KUHP Pasal 363",
+                                content: "Pencurian yang dilakukan pada waktu malam dalam sebuah rumah atau di pekarangan yang tertutup yang ada rumahnya, di jalan umum, atau di dalam kereta api atau trem yang sedang berjalan, diancam dengan pidana penjara paling lama tujuh tahun."
+                            }
+                        ]
+                    },
+                    {
+                        title: "Penganiayaan",
+                        description: "Tindak pidana penganiayaan",
+                        articles: [
+                            {
+                                title: "KUHP Pasal 351",
+                                content: "Penganiayaan diancam dengan pidana penjara paling lama dua tahun delapan bulan atau pidana denda paling banyak empat ribu lima ratus rupiah."
+                            },
+                            {
+                                title: "KUHP Pasal 352",
+                                content: "Penganiayaan ringan diancam dengan pidana penjara paling lama tiga bulan atau pidana denda paling banyak empat ribu lima ratus rupiah."
+                            }
+                        ]
+                    },
+                    {
+                        title: "Penipuan",
+                        description: "Tindak pidana penipuan",
+                        articles: [
+                            {
+                                title: "KUHP Pasal 378",
+                                content: "Barangsiapa dengan maksud untuk menguntungkan diri sendiri atau orang lain secara melawan hukum, dengan menggunakan nama palsu atau martabat palsu, dengan tipu muslihat, atau dengan rangkaian kebohongan, menggerakkan orang lain untuk menyerahkan barang sesuatu kepadanya, atau supaya memberi hutang maupun menghapuskan piutang, diancam karena penipuan dengan pidana penjara paling lama empat tahun."
+                            }
+                        ]
+                    }
+                ]
+            },
+            ketenagakerjaan: {
+                title: "Hukum Ketenagakerjaan",
+                cases: [
+                    {
+                        title: "Pemutusan Hubungan Kerja (PHK)",
+                        description: "Hak dan kewajiban terkait PHK",
+                        articles: [
+                            {
+                                title: "UU No. 13 Tahun 2003 Pasal 151",
+                                content: "Pengusaha, pekerja/buruh, serikat pekerja/serikat buruh, dan pemerintah, dengan segala upaya harus mengusahakan agar jangan terjadi pemutusan hubungan kerja."
+                            },
+                            {
+                                title: "UU No. 13 Tahun 2003 Pasal 153",
+                                content: "Permohonan penetapan pemutusan hubungan kerja diajukan secara tertulis kepada lembaga penyelesaian perselisihan hubungan industrial disertai alasan yang menjadi dasarnya."
+                            }
+                        ]
+                    },
+                    {
+                        title: "Upah dan Tunjangan",
+                        description: "Hak pekerja terkait upah",
+                        articles: [
+                            {
+                                title: "UU No. 13 Tahun 2003 Pasal 88",
+                                content: "Setiap pekerja/buruh berhak memperoleh penghasilan yang memenuhi penghidupan yang layak bagi kemanusiaan."
+                            },
+                            {
+                                title: "UU No. 13 Tahun 2003 Pasal 93",
+                                content: "Upah tidak dibayar apabila pekerja/buruh tidak melakukan pekerjaan."
+                            }
+                        ]
+                    }
+                ]
+            },
+            keluarga: {
+                title: "Hukum Keluarga",
+                cases: [
+                    {
+                        title: "Perceraian",
+                        description: "Hukum tentang perceraian",
+                        articles: [
+                            {
+                                title: "UU No. 1 Tahun 1974 Pasal 39",
+                                content: "Perceraian hanya dapat dilakukan di depan sidang Pengadilan setelah Pengadilan yang bersangkutan berusaha dan tidak berhasil mendamaikan kedua belah pihak."
+                            },
+                            {
+                                title: "Kompilasi Hukum Islam Pasal 116",
+                                content: "Perceraian dapat terjadi karena alasan syiqaq, perselisihan dan pertengkaran antara suami isteri."
+                            }
+                        ]
+                    },
+                    {
+                        title: "Hak Asuh Anak",
+                        description: "Pengaturan hak asuh anak",
+                        articles: [
+                            {
+                                title: "UU No. 1 Tahun 1974 Pasal 41",
+                                content: "Akibat putusnya perkawinan karena perceraian ialah: kedua orang tua tetap wajib memelihara dan mendidik anak-anaknya, semata-mata berdasarkan kepentingan anak; bilamana ada perselisihan mengenai penguasaan anak-anak, Pengadilan memberi keputusannya."
+                            },
+                            {
+                                title: "Kompilasi Hukum Islam Pasal 105",
+                                content: "Pemeliharaan anak yang belum mumayyiz atau belum berumur 12 tahun adalah hak ibunya."
+                            }
+                        ]
+                    }
+                ]
+            },
+            properti: {
+                title: "Hukum Properti",
+                cases: [
+                    {
+                        title: "Sertifikat Hak Milik",
+                        description: "Masalah terkait sertifikat tanah",
+                        articles: [
+                            {
+                                title: "UU No. 5 Tahun 1960 Pasal 19",
+                                content: "Untuk menjamin kepastian hukum oleh Pemerintah diadakan pendaftaran tanah throughout Indonesia menurut ketentuan-ketentuan yang diatur dengan Peraturan Pemerintah."
+                            },
+                            {
+                                title: "PP No. 24 Tahun 1997 Pasal 3",
+                                content: "Pendaftaran tanah diselenggarakan melalui kegiatan: (a) pengumpulan dan pengolahan data fisik; (b) pengumpulan dan pengolahan data yuridis; (c) pembukuan; (d) penerbitan sertifikat; (e) penyajian data fisik and data yuridis; (f) penyimpanan daftar umum dan dokumen."
+                            }
+                        ]
+                    },
+                    {
+                        title: "Sengketa Batas Tanah",
+                        description: "Penyelesaian sengketa batas tanah",
+                        articles: [
+                            {
+                                title: "KUHPer Pasal 1168",
+                                content: "Pemilik sebidang tanah berhak untuk menuntut diakuinya hak miliknya atas tanah itu, dengan jalan menuntut penghapusan segala beban dan hipotek-hipotek yang tidak sah didaftarkan atas tanah itu, dan untuk menguasai tanah itu kembali dari tangan siapapun juga yang menguasainya tanpa hak."
+                            }
+                        ]
+                    }
+                ]
+            },
+            konsumen: {
+                title: "Hukum Perlindungan Konsumen",
+                cases: [
+                    {
+                        title: "Barang Cacat/Tidak Sesuai",
+                        description: "Gugatan atas barang cacat",
+                        articles: [
+                            {
+                                title: "UU No. 8 Tahun 1999 Pasal 4",
+                                content: "Konsumen berhak atas kenyamanan, keamanan, dan keselamatan dalam mengonsumsi barang dan/atau jasa."
+                            },
+                            {
+                                title: "UU No. 8 Tahun 1999 Pasal 7",
+                                content: "Konsumen berhak untuk mengembalikan barang yang cacat atau tidak sesuai dengan perjanjian."
+                            }
+                        ]
+                    },
+                    {
+                        title: "Gugatan Konsumen",
+                        description: "Proses gugatan konsumen",
+                        articles: [
+                            {
+                                title: "UU No. 8 Tahun 1999 Pasal 46",
+                                content: "Gugatan atas pelanggaran pelaku usaha dapat dilakukan oleh: a. seorang konsumen yang dirugikan; b. kelompok konsumen yang mempunyai kepentingan sama; c. lembaga perlindungan konsumen swadaya masyarakat; atau d. pemerintah dan/atau instansi terkait."
+                            }
+                        ]
+                    }
+                ]
+            }
+        };
+
+        // Data untuk kasus populer
+        const popularCasesData = {
+            "sengketa-tanah": {
+                title: "Sengketa Tanah",
+                category: "perdata",
+                articles: [
+                    {
+                        title: "KUHPer Pasal 1166",
+                        content: "Hak kebendaan yang memberikan kenikmatan atas suatu benda seolah-olah benda itu kepunyaan sendiri."
+                    },
+                    {
+                        title: "UU No. 5 Tahun 1960 (UUPA) Pasal 19",
+                        content: "Pendaftaran tanah diselenggarakan untuk memberikan kepastian hukum dan perlindungan hukum kepada pemegang hak atas suatu bidang tanah, satuan rumah susun, dan hak-hak lain yang terdaftar."
+                    },
+                    {
+                        title: "KUHPer Pasal 570",
+                        content: "Hak milik adalah hak untuk menikmati kegunaan suatu kebendaan dengan leluasa, dan untuk berbuat bebas terhadap kebendaan itu dengan kedaulatan sepenuhnya, asal tidak bertentangan dengan undang-undang atau peraturan umum yang ditetapkan oleh suatu kekuasaan yang berhak menetapkannya, dan tidak mengganggu hak-hak orang lain."
+                    }
+                ]
+            },
+            "perceraian": {
+                title: "Perceraian",
+                category: "keluarga",
+                articles: [
+                    {
+                        title: "UU No. 1 Tahun 1974 Pasal 39",
+                        content: "Perceraian hanya dapat dilakukan di depan sidang Pengadilan setelah Pengadilan yang bersangkutan berusaha dan tidak berhasil mendamaikan kedua belah pihak."
+                    },
+                    {
+                        title: "Kompilasi Hukum Islam Pasal 116",
+                        content: "Perceraian dapat terjadi karena alasan syiqaq, perselisihan dan pertengkaran antara suami isteri."
+                    },
+                    {
+                        title: "UU No. 1 Tahun 1974 Pasal 41",
+                        content: "Akibat putusnya perkawinan karena perceraian ialah: kedua orang tua tetap wajib memelihara dan mendidik anak-anaknya, semata-mata berdasarkan kepentingan anak; bilamana ada perselisihan mengenai penguasaan anak-anak, Pengadilan memberi keputusannya."
+                    }
+                ]
+            },
+            "hutang-piutang": {
+                title: "Hutang Piutang",
+                category: "perdata",
+                articles: [
+                    {
+                        title: "KUHPer Pasal 1754",
+                        content: "Perjanjian pinjam meminjam adalah perjanjian dengan mana pihak yang satu memberikan kepada pihak yang lain suatu jumlah tertentu barang-barang yang habis karena pemakaian."
+                    },
+                    {
+                        title: "KUHPer Pasal 1755",
+                        content: "Dengan perjanjian pinjam meminjam, pihak yang meminjamkan mengalihkan hak milik atas sejumlah uang atau atas barang lainnya yang habis terpakai kepada pihak yang meminjam, dengan syarat bahwa pihak yang meminjam ini akan mengembalikan sejumlah yang sama dari jenis dan mutu yang sama pula."
+                    }
+                ]
+            },
+            "phk": {
+                title: "Pemutusan Hubungan Kerja (PHK)",
+                category: "ketenagakerjaan",
+                articles: [
+                    {
+                        title: "UU No. 13 Tahun 2003 Pasal 151",
+                        content: "Pengusaha, pekerja/buruh, serikat pekerja/serikat buruh, dan pemerintah, dengan segala upaya harus mengusahakan agar jangan terjadi pemutusan hubungan kerja."
+                    },
+                    {
+                        title: "UU No. 13 Tahun 2003 Pasal 153",
+                        content: "Permohonan penetapan pemutusan hubungan kerja diajukan secara tertulis kepada lembaga penyelesaian perselisihan hubungan industrial disertai alasan yang menjadi dasarnya."
+                    }
+                ]
+            }
+        };
+
+        // Data untuk UU
+        const lawsData = [
+        {
+        title: "Kitab Undang-Undang Hukum Pidana (KUHP)",
+        articles: [
+            { title: "Pasal 1", content: "Suatu perbuatan tidak dapat dipidana, kecuali berdasarkan kekuatan ketentuan perundang-undangan yang telah ada." },
+            { title: "Pasal 338", content: "Barangsiapa dengan sengaja merampas nyawa orang lain, diancam karena pembunuhan dengan pidana penjara paling lama lima belas tahun." },
+            { title: "Pasal 362", content: "Barangsiapa mengambil sesuatu benda yang seluruhnya atau sebagian kepunyaan orang lain, dengan maksud untuk dimiliki secara melawan hukum, diancam karena pencurian dengan pidana penjara paling lama lima tahun atau pidana denda paling banyak sembilan ratus rupiah." },
+            { title: "Pasal 351", content: "Penganiayaan diancam dengan pidana penjara paling lama dua tahun delapan bulan atau pidana denda paling banyak empat ribu lima ratus rupiah." },
+            { title: "Pasal 378", content: "Barangsiapa dengan maksud untuk menguntungkan diri sendiri atau orang lain secara melawan hukum, dengan menggunakan nama palsu atau martabat palsu, dengan tipu muslihat, atau dengan rangkaian kebohongan, menggerakkan orang lain untuk menyerahkan barang sesuatu kepadanya, atau supaya memberi hutang maupun menghapuskan piutang, diancam karena penipuan dengan pidana penjara paling lama empat tahun." }
+        ]
+    },
+    {
+        title: "Kitab Undang-Undang Hukum Perdata (KUHPer)",
+        articles: [
+            { title: "Pasal 1338", content: "Semua perjanjian yang dibuat secara sah berlaku sebagai undang-undang bagi mereka yang membuatnya." },
+            { title: "Pasal 1320", content: "Untuk sahnya suatu perjanjian diperlukan empat syarat: sepakat mereka yang mengikatkan dirinya; kecakapan untuk membuat suatu perikatan; suatu hal tertentu; suatu sebab yang halal." },
+            { title: "Pasal 1233", content: "Tiap-tiap perikatan dilahirkan baik karena persetujuan, baik karena undang-undang." },
+            { title: "Pasal 1166", content: "Hak kebendaan yang memberikan kenikmatan atas suatu benda seolah-olah benda itu kepunyaan sendiri." },
+            { title: "Pasal 1754", content: "Perjanjian pinjam meminjam adalah perjanjian dengan mana pihak yang satu memberikan kepada pihak yang lain suatu jumlah tertentu barang-barang yang habis karena pemakaian." }
+        ]
+    },
+    {
+        title: "UU No. 1 Tahun 1974 - Perkawinan",
+        articles: [
+            { title: "Pasal 1", content: "Perkawinan ialah ikatan lahir bathin antara seorang pria dengan seorang wanita sebagai suami isteri dengan tujuan membentuk keluarga (rumah tangga) yang bahagia dan kekal berdasarkan Ketuhanan Yang Maha Esa." },
+            { title: "Pasal 2", content: "Perkawinan adalah sah, apabila dilakukan menurut hukum masing-masing agamanya dan kepercayaannya itu." },
+            { title: "Pasal 3", content: "Pada asasnya dalam suatu perkawinan seorang pria hanya boleh mempunyai seorang isteri. Seorang wanita hanya boleh mempunyai seorang suami." },
+            { title: "Pasal 39", content: "Perceraian hanya dapat dilakukan di depan sidang Pengadilan setelah Pengadilan yang bersangkutan berusaha dan tidak berhasil mendamaikan kedua belah pihak." },
+            { title: "Pasal 41", content: "Akibat putusnya perkawinan karena perceraian ialah: kedua orang tua tetap wajib memelihara dan mendidik anak-anaknya, semata-mata berdasarkan kepentingan anak; bilamana ada perselisihan mengenai penguasaan anak-anak, Pengadilan memberi keputusannya." }
+        ]
+    },
+    {
+        title: "UU No. 13 Tahun 2003 - Ketenagakerjaan",
+        articles: [
+            { title: "Pasal 88", content: "Setiap pekerja/buruh berhak memperoleh penghasilan yang memenuhi penghidupan yang layak bagi kemanusiaan." },
+            { title: "Pasal 93", content: "Upah tidak dibayar apabila pekerja/buruh tidak melakukan pekerjaan." },
+            { title: "Pasal 151", content: "Pengusaha, pekerja/buruh, serikat pekerja/serikat buruh, dan pemerintah, dengan segala upaya harus mengusahakan agar jangan terjadi pemutusan hubungan kerja." },
+            { title: "Pasal 153", content: "Permohonan penetapan pemutusan hubungan kerja diajukan secara tertulis kepada lembaga penyelesaian perselisihan hubungan industrial disertai alasan yang menjadi dasarnya." }
+        ]
+    },
+    {
+        title: "UU No. 8 Tahun 1999 - Perlindungan Konsumen",
+        articles: [
+            { title: "Pasal 4", content: "Konsumen berhak atas kenyamanan, keamanan, dan keselamatan dalam mengonsumsi barang dan/atau jasa." },
+            { title: "Pasal 7", content: "Konsumen berhak untuk mengembalikan barang yang cacat atau tidak sesuai dengan perjanjian." },
+            { title: "Pasal 46", content: "Gugatan atas pelanggaran pelaku usaha dapat dilakukan oleh: a. seorang konsumen yang dirugikan; b. kelompok konsumen yang mempunyai kepentingan sama; c. lembaga perlindungan konsumen swadaya masyarakat; atau d. pemerintah dan/atau instansi terkait." }
+        ]
+    },
+    {
+        title: "UU No. 5 Tahun 1960 - Agraria",
+        articles: [
+            { title: "Pasal 19", content: "Pendaftaran tanah diselenggarakan untuk memberikan kepastian hukum dan perlindungan hukum kepada pemegang hak atas suatu bidang tanah, satuan rumah susun, dan hak-hak lain yang terdaftar." }
+        ]
+    },
+    {
+        title: "UU No. 39 Tahun 1999 - Hak Asasi Manusia",
+        articles: [
+            { title: "Pasal 3", content: "Setiap orang dilahirkan bebas dengan harkat dan martabat yang sama serta berhak atas pengakuan, jaminan, perlindungan, dan perlakuan hukum yang adil." },
+            { title: "Pasal 4", content: "Hak untuk hidup, hak untuk tidak disiksa, hak kemerdekaan pikiran dan hati nurani, tidak dapat dikurangi dalam keadaan apapun." },
+            { title: "Pasal 66", content: "Setiap orang wajib menghormati hak asasi manusia orang lain." }
+        ]
+    },
+    {
+        title: "UU No. 11 Tahun 2008 - Informasi dan Transaksi Elektronik (ITE)",
+        articles: [
+            { title: "Pasal 27", content: "Setiap orang dilarang dengan sengaja dan tanpa hak mendistribusikan dan/atau mentransmisikan informasi elektronik yang memiliki muatan yang melanggar kesusilaan." },
+            { title: "Pasal 28", content: "Setiap orang dilarang menyebarkan berita bohong dan menyesatkan yang merugikan konsumen dalam transaksi elektronik." },
+            { title: "Pasal 29", content: "Setiap orang dengan sengaja mengirimkan informasi elektronik yang berisi ancaman kekerasan dapat dipidana." }
+        ]
+    },
+    {
+        title: "UU No. 22 Tahun 2009 - Lalu Lintas dan Angkutan Jalan",
+        articles: [
+            { title: "Pasal 77", content: "Setiap orang yang mengemudikan kendaraan bermotor di jalan wajib memiliki Surat Izin Mengemudi (SIM)." },
+            { title: "Pasal 106", content: "Setiap orang yang mengemudikan kendaraan bermotor wajib mengemudi dengan wajar dan penuh konsentrasi." },
+            { title: "Pasal 291", content: "Setiap orang yang mengemudikan sepeda motor dan tidak mengenakan helm standar dikenai pidana kurungan atau denda." }
+        ]
+    },
+    {
+        title: "UU No. 36 Tahun 2009 - Kesehatan",
+        articles: [
+            { title: "Pasal 4", content: "Setiap orang berhak atas kesehatan." },
+            { title: "Pasal 5", content: "Setiap orang mempunyai hak yang sama dalam memperoleh akses atas sumber daya di bidang kesehatan." },
+            { title: "Pasal 80", content: "Setiap orang dilarang memperjualbelikan organ tubuh dengan tujuan komersial." }
+        ]
+    },
+    {
+        title: "UU No. 32 Tahun 2009 - Perlindungan dan Pengelolaan Lingkungan Hidup",
+        articles: [
+            { title: "Pasal 65", content: "Setiap orang berhak atas lingkungan hidup yang baik dan sehat." },
+            { title: "Pasal 67", content: "Setiap orang berkewajiban memelihara kelestarian fungsi lingkungan hidup serta mengendalikan pencemaran." },
+            { title: "Pasal 98", content: "Setiap orang yang dengan sengaja melakukan perbuatan yang mengakibatkan pencemaran dan/atau perusakan lingkungan hidup diancam pidana penjara dan denda." }
+        ]
+    },
+    {
+        title: "UU No. 35 Tahun 2009 - Narkotika",
+        articles: [
+            { title: "Pasal 111", content: "Setiap orang yang tanpa hak menanam, memelihara, memiliki, menyimpan, menguasai, atau menyediakan narkotika golongan I diancam pidana penjara." },
+            { title: "Pasal 112", content: "Setiap orang yang tanpa hak memiliki, menyimpan, menguasai, atau menyediakan narkotika golongan I bukan tanaman diancam pidana penjara." },
+            { title: "Pasal 127", content: "Setiap penyalahguna narkotika golongan I, II, dan III bagi diri sendiri dipidana penjara atau rehabilitasi." }
+        ]
+    },
+    {
+        title: "UU No. 31 Tahun 1999 - Pemberantasan Tindak Pidana Korupsi",
+        articles: [
+            { title: "Pasal 2", content: "Setiap orang yang secara melawan hukum melakukan perbuatan memperkaya diri sendiri atau orang lain atau suatu korporasi yang merugikan keuangan negara, dipidana penjara seumur hidup atau pidana penjara." },
+            { title: "Pasal 3", content: "Setiap orang yang dengan tujuan menguntungkan diri sendiri atau orang lain atau suatu korporasi, menyalahgunakan kewenangan karena jabatan atau kedudukan yang merugikan keuangan negara, dipidana penjara." }
+        ]
+    },
+    {
+        title: "UU No. 15 Tahun 2003 - Pemberantasan Tindak Pidana Terorisme",
+        articles: [
+            { title: "Pasal 6", content: "Setiap orang yang dengan sengaja menggunakan kekerasan atau ancaman kekerasan yang menimbulkan suasana teror di masyarakat dapat dipidana mati atau penjara seumur hidup." },
+            { title: "Pasal 9", content: "Setiap orang yang memberikan bantuan atau kemudahan terhadap tindak pidana terorisme dipidana penjara." }
+        ]
+    },
+    {
+        title: "UU No. 40 Tahun 1999 - Pers",
+        articles: [
+            { title: "Pasal 4", content: "Kemerdekaan pers dijamin sebagai hak asasi warga negara." },
+            { title: "Pasal 5", content: "Pers nasional berkewajiban memberitakan peristiwa dan opini dengan menghormati norma agama dan rasa kesusilaan masyarakat." }
+        ]
+    },
+    {
+        title: "UU No. 10 Tahun 1998 - Perbankan",
+        articles: [
+            { title: "Pasal 29", content: "Bank wajib memelihara tingkat kesehatan bank sesuai dengan ketentuan yang ditetapkan oleh Bank Indonesia." },
+            { title: "Pasal 34", content: "Bank wajib merahasiakan keterangan mengenai nasabah penyimpan dan simpanannya." }
+        ]
+    },
+    {
+        title: "UU No. 28 Tahun 2007 - Perpajakan",
+        articles: [
+            { title: "Pasal 1", content: "Wajib Pajak adalah orang pribadi atau badan yang menurut ketentuan peraturan perundang-undangan perpajakan ditentukan untuk melakukan kewajiban perpajakan." },
+            { title: "Pasal 12", content: "Setiap Wajib Pajak wajib membayar pajak yang terutang." }
+        ]
+    },
+    {
+        title: "UU No. 6 Tahun 2014 - Desa",
+        articles: [
+            { title: "Pasal 1", content: "Desa adalah kesatuan masyarakat hukum yang memiliki batas wilayah dan berwenang mengatur serta mengurus kepentingan masyarakat setempat." },
+            { title: "Pasal 26", content: "Kepala Desa berkewajiban melaksanakan kehidupan demokrasi dan keadilan gender dalam pemerintahan desa." }
+        ]
+    },
+    {
+        title: "UU No. 7 Tahun 2017 - Pemilu",
+        articles: [
+            { title: "Pasal 22", content: "Pemilu dilaksanakan berdasarkan asas langsung, umum, bebas, rahasia, jujur, dan adil." },
+            { title: "Pasal 280", content: "Pelaksana, peserta, dan tim kampanye Pemilu dilarang menghina seseorang, agama, suku, ras, golongan, calon, dan/atau peserta pemilu lain." }
+        ]
+    }
+    ];
+
+        // Data untuk bookmark
+        let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+
+        // Navigasi antar halaman
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // Update navbar active state
+                document.querySelectorAll('.nav-item').forEach(nav => {
+                    nav.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Show the corresponding page
+                const pageId = this.getAttribute('data-page');
+                document.querySelectorAll('.page').forEach(page => {
+                    page.classList.remove('active');
+                });
+                document.getElementById(pageId).classList.add('active');
+                
+                // Jika halaman UU, muat data UU
+                if (pageId === 'laws') {
+                    loadLawsData();
+                }
+                
+                // Jika halaman bookmark, muat bookmark
+                if (pageId === 'bookmarks') {
+                    loadBookmarks();
+                }
+            });
+        });
+        
+        // Fungsi untuk memuat data UU
+        function loadLawsData() {
+            const lawsContent = document.getElementById('lawsContent');
+            if (!lawsContent) return;
+            
+            let lawsHTML = '';
+            
+            lawsData.forEach(law => {
+                lawsHTML += `
+                    <div class="law-item">
+                        <div class="law-header">
+                            <h3>${law.title}</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="law-content">
+                `;
+                
+                law.articles.forEach(article => {
+                    const isBookmarked = bookmarks.some(b => b.title === article.title && b.content === article.content);
+                    
+                    lawsHTML += `
+                        <div class="law-article">
+                            <h4>${article.title}</h4>
+                            <p>${article.content}</p>
+                            <button class="bookmark-btn ${isBookmarked ? 'active' : ''}" 
+                                    data-title="${article.title}" 
+                                    data-content="${article.content}">
+                                <i class="${isBookmarked ? 'fas' : 'far'} fa-bookmark"></i>
+                            </button>
+                        </div>
+                    `;
+                });
+                
+                lawsHTML += `
+                        </div>
+                    </div>
+                `;
+            });
+            
+            lawsContent.innerHTML = lawsHTML;
+            
+            // Aktifkan event listeners untuk accordion
+            initAccordions();
+            
+            // Aktifkan event listeners untuk bookmark
+            initBookmarkButtons();
+        }
+        
+        // Fungsi untuk memuat bookmark
+        function loadBookmarks() {
+            const bookmarksContent = document.getElementById('bookmarksContent');
+            const emptyBookmarks = document.getElementById('emptyBookmarks');
+            
+            if (!bookmarksContent || !emptyBookmarks) return;
+            
+            if (bookmarks.length === 0) {
+                bookmarksContent.innerHTML = '';
+                emptyBookmarks.style.display = 'block';
+                return;
+            }
+            
+            emptyBookmarks.style.display = 'none';
+            
+            let bookmarksHTML = '';
+            
+            // Kelompokkan bookmark berdasarkan judul UU
+            const groupedBookmarks = {};
+            bookmarks.forEach(bookmark => {
+                if (!groupedBookmarks[bookmark.lawTitle]) {
+                    groupedBookmarks[bookmark.lawTitle] = [];
+                }
+                groupedBookmarks[bookmark.lawTitle].push(bookmark);
+            });
+            
+            // Buat HTML untuk bookmark yang dikelompokkan
+            for (const lawTitle in groupedBookmarks) {
+                bookmarksHTML += `
+                    <div class="law-item">
+                        <div class="law-header">
+                            <h3>${lawTitle}</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="law-content">
+                `;
+                
+                groupedBookmarks[lawTitle].forEach(bookmark => {
+                    bookmarksHTML += `
+                        <div class="law-article">
+                            <h4>${bookmark.title}</h4>
+                            <p>${bookmark.content}</p>
+                            <button class="bookmark-btn active" 
+                                    data-title="${bookmark.title}" 
+                                    data-content="${bookmark.content}"
+                                    data-lawtitle="${lawTitle}">
+                                <i class="fas fa-bookmark"></i>
+                            </button>
+                        </div>
+                    `;
+                });
+                
+                bookmarksHTML += `
+                        </div>
+                    </div>
+                `;
+            }
+            
+            bookmarksContent.innerHTML = bookmarksHTML;
+            
+            // Aktifkan event listeners untuk accordion
+            initAccordions();
+            
+            // Aktifkan event listeners untuk bookmark
+            initBookmarkButtons();
+        }
+        
+        // Inisialisasi accordion
+        function initAccordions() {
+            document.querySelectorAll('.law-header').forEach(header => {
+                header.addEventListener('click', function() {
+                    const content = this.nextElementSibling;
+                    const icon = this.querySelector('i');
+                    
+                    // Toggle active class
+                    content.classList.toggle('active');
+                    
+                    // Change icon
+                    if (content.classList.contains('active')) {
+                        icon.classList.remove('fa-chevron-down');
+                        icon.classList.add('fa-chevron-up');
+                    } else {
+                        icon.classList.remove('fa-chevron-up');
+                        icon.classList.add('fa-chevron-down');
+                    }
+                });
+            });
+        }
+        
+        // Inisialisasi tombol bookmark
+        function initBookmarkButtons() {
+            document.querySelectorAll('.bookmark-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation(); // Prevent triggering the accordion
+                    
+                    const title = this.getAttribute('data-title');
+                    const content = this.getAttribute('data-content');
+                    const lawTitle = this.getAttribute('data-lawtitle') || 
+                                    this.closest('.law-item').querySelector('.law-header h3').textContent;
+                    
+                    // Cek apakah sudah di-bookmark
+                    const index = bookmarks.findIndex(b => b.title === title && b.content === content);
+                    
+                    if (index === -1) {
+                        // Tambahkan bookmark
+                        bookmarks.push({ title, content, lawTitle });
+                        this.classList.add('active');
+                        this.innerHTML = '<i class="fas fa-bookmark"></i>';
+                        showToast('Pasal disimpan');
+                    } else {
+                        // Hapus bookmark
+                        bookmarks.splice(index, 1);
+                        this.classList.remove('active');
+                        this.innerHTML = '<i class="far fa-bookmark"></i>';
+                        showToast('Pasal dihapus');
+                        
+                        // Jika di halaman bookmark, perbarui tampilan
+                        if (document.getElementById('bookmarks').classList.contains('active')) {
+                            loadBookmarks();
+                        }
+                    }
+                    
+                    // Simpan ke localStorage
+                    localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+                });
+            });
+        }
+        
+        // Fungsi untuk menampilkan toast notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            if (!toast) return;
+            
+            toast.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Search functionality
+        document.querySelectorAll('.search-bar button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const searchInput = this.previousElementSibling;
+                alert('Melakukan pencarian untuk: ' + searchInput.value);
+                // Implementasi pencarian sebenarnya akan ditambahkan di sini
+            });
+        });
+        
+        // Navigasi ke halaman kategori
+        document.querySelectorAll('.category-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const category = this.getAttribute('data-category');
+                showCategoryContent(category);
+            });
+        });
+        
+        // Navigasi untuk kasus populer
+        document.querySelectorAll('.case-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const caseType = this.getAttribute('data-case');
+                showCaseContent(caseType);
+            });
+        });
+        
+        // Tombol kembali ke dashboard
+        document.getElementById('backToDashboard').addEventListener('click', function() {
+            document.querySelectorAll('.nav-item').forEach(nav => {
+                nav.classList.remove('active');
+            });
+            document.querySelector('[data-page="dashboard"]').classList.add('active');
+            
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById('dashboard').classList.add('active');
+        });
+        
+        // Fungsi untuk menampilkan konten kategori
+        function showCategoryContent(category) {
+            const categoryInfo = categoryData[category];
+            if (!categoryInfo) return;
+            
+            // Update judul kategori
+            document.getElementById('categoryDetailTitle').textContent = categoryInfo.title;
+            
+            // Generate konten kasus
+            let casesHTML = '';
+            
+            categoryInfo.cases.forEach(caseItem => {
+                casesHTML += `
+                    <div class="case-item">
+                        <h3>${caseItem.title}</h3>
+                        <p>${caseItem.description}</p>
+                        <div class="case-dropdown">
+                            <div class="case-dropdown-content">
+                                ${caseItem.articles.map(article => {
+                                    const isBookmarked = bookmarks.some(b => b.title === article.title && b.content === article.content);
+                                    return `
+                                        <div class="law-article">
+                                            <h4>${article.title}</h4>
+                                            <p>${article.content}</p>
+                                            <button class="bookmark-btn ${isBookmarked ? 'active' : ''}" 
+                                                    data-title="${article.title}" 
+                                                    data-content="${article.content}"
+                                                    data-lawtitle="${categoryInfo.title} - ${caseItem.title}">
+                                                <i class="${isBookmarked ? 'fas' : 'far'} fa-bookmark"></i>
+                                            </button>
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            // Masukkan konten ke dalam halaman
+            document.getElementById('categoryCases').innerHTML = casesHTML;
+            
+            // Aktifkan event listeners untuk dropdown kasus
+            initCaseDropdowns();
+            
+            // Aktifkan event listeners untuk bookmark
+            initBookmarkButtons();
+            
+            // Buka halaman kategori detail
+            document.querySelectorAll('.nav-item').forEach(nav => {
+                nav.classList.remove('active');
+            });
+            
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById('category-detail').classList.add('active');
+        }
+        
+        // Inisialisasi dropdown kasus
+        function initCaseDropdowns() {
+            document.querySelectorAll('.case-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const dropdown = this.querySelector('.case-dropdown');
+                    dropdown.classList.toggle('active');
+                });
+            });
+        }
+        
+        // Fungsi untuk menampilkan konten kasus populer
+        function showCaseContent(caseType) {
+            const caseInfo = popularCasesData[caseType];
+            if (!caseInfo) return;
+            
+            // Update judul
+            document.getElementById('categoryDetailTitle').textContent = caseInfo.title;
+            
+            // Generate konten
+            let casesHTML = '';
+            
+            casesHTML += `
+                <div class="case-item">
+                    <h3>${caseInfo.title}</h3>
+                    <p>Kasus populer terkait ${caseInfo.title}</p>
+                    <div class="case-dropdown">
+                        <div class="case-dropdown-content">
+            `;
+            
+            caseInfo.articles.forEach(article => {
+                const isBookmarked = bookmarks.some(b => b.title === article.title && b.content === article.content);
+                
+                casesHTML += `
+                    <div class="law-article">
+                        <h4>${article.title}</h4>
+                        <p>${article.content}</p>
+                        <button class="bookmark-btn ${isBookmarked ? 'active' : ''}" 
+                                data-title="${article.title}" 
+                                data-content="${article.content}"
+                                data-lawtitle="${caseInfo.title}">
+                            <i class="${isBookmarked ? 'fas' : 'far'} fa-bookmark"></i>
+                        </button>
+                    </div>
+                `;
+            });
+            
+            casesHTML += `
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Masukkan konten ke dalam halaman
+            document.getElementById('categoryCases').innerHTML = casesHTML;
+            
+            // Aktifkan event listeners untuk dropdown kasus
+            initCaseDropdowns();
+            
+            // Aktifkan event listeners untuk bookmark
+            initBookmarkButtons();
+            
+            // Buka halaman kategori detail
+            document.querySelectorAll('.nav-item').forEach(nav => {
+                nav.classList.remove('active');
+            });
+            
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById('category-detail').classList.add('active');
+        }
+        
+        // Inisialisasi awal
+        document.addEventListener('DOMContentLoaded', function() {
+            initAccordions();
+            initBookmarkButtons();
+            initCaseDropdowns();
+        });
+
+        // Fungsi pencarian umum
+function searchContent() {
+    const query = document.getElementById('mainSearch').value.toLowerCase();
+    if (!query) return;
+    
+    // Cari di semua data
+    const allResults = [];
+    
+    // Cari dalam kategori
+    for (const category in categoryData) {
+        categoryData[category].cases.forEach(caseItem => {
+            if (caseItem.title.toLowerCase().includes(query) || 
+                caseItem.description.toLowerCase().includes(query)) {
+                allResults.push({
+                    type: 'category',
+                    category: category,
+                    case: caseItem,
+                    title: caseItem.title,
+                    description: caseItem.description
+                });
+            }
+            
+            // Cari dalam artikel
+            caseItem.articles.forEach(article => {
+                if (article.title.toLowerCase().includes(query) || 
+                    article.content.toLowerCase().includes(query)) {
+                    allResults.push({
+                        type: 'article',
+                        category: category,
+                        case: caseItem.title,
+                        title: article.title,
+                        content: article.content
+                    });
+                }
+            });
+        });
+    }
+    
+    // Cari dalam UU
+    lawsData.forEach(law => {
+        if (law.title.toLowerCase().includes(query)) {
+            allResults.push({
+                type: 'law',
+                title: law.title,
+                law: law
+            });
+        }
+        
+        law.articles.forEach(article => {
+            if (article.title.toLowerCase().includes(query) || 
+                article.content.toLowerCase().includes(query)) {
+                allResults.push({
+                    type: 'law-article',
+                    law: law.title,
+                    title: article.title,
+                    content: article.content
+                });
+            }
+        });
+    });
+    
+    // Tampilkan hasil pencarian
+    showSearchResults(allResults, query);
+}
+
+// Fungsi pencarian khusus UU
+function searchLaws() {
+    const query = document.getElementById('searchLaws').value.toLowerCase();
+    const lawItems = document.querySelectorAll('.law-item');
+    
+    lawItems.forEach(item => {
+        const lawTitle = item.querySelector('.law-header h3').textContent.toLowerCase();
+        let found = lawTitle.includes(query);
+        
+        if (!found) {
+            // Cari dalam artikel
+            const articles = item.querySelectorAll('.law-article');
+            articles.forEach(article => {
+                const articleTitle = article.querySelector('h4').textContent.toLowerCase();
+                const articleContent = article.querySelector('p').textContent.toLowerCase();
+                
+                if (articleTitle.includes(query) || articleContent.includes(query)) {
+                    found = true;
+                }
+            });
+        }
+        
+        item.style.display = found ? 'block' : 'none';
+    });
+}
+
+// Fungsi pencarian dalam kategori
+function searchInCategory() {
+    const query = document.getElementById('searchCategory').value.toLowerCase();
+    const caseItems = document.querySelectorAll('.case-item');
+    
+    caseItems.forEach(item => {
+        const caseTitle = item.querySelector('h3').textContent.toLowerCase();
+        const caseDesc = item.querySelector('p').textContent.toLowerCase();
+        let found = caseTitle.includes(query) || caseDesc.includes(query);
+        
+        if (!found) {
+            // Cari dalam artikel
+            const articles = item.querySelectorAll('.law-article');
+            articles.forEach(article => {
+                const articleTitle = article.querySelector('h4').textContent.toLowerCase();
+                const articleContent = article.querySelector('p').textContent.toLowerCase();
+                
+                if (articleTitle.includes(query) || articleContent.includes(query)) {
+                    found = true;
+                }
+            });
+        }
+        
+        item.style.display = found ? 'block' : 'none';
+    });
+}
+
+// Fungsi untuk menampilkan hasil pencarian
+function showSearchResults(results, query) {
+    // Buat halaman hasil pencarian
+    const searchResultsHTML = `
+        <div class="container">
+            <button class="back-button" onclick="goBackToDashboard()">
+                <i class="fas fa-arrow-left"></i> Kembali
+            </button>
+            <h2 class="category-title">Hasil Pencarian: "${query}"</h2>
+            <p>Ditemukan ${results.length} hasil</p>
+            
+            <div class="search-results">
+                ${results.length > 0 ? results.map(result => `
+                    <div class="search-result-item">
+                        <h3>${result.title}</h3>
+                        ${result.description ? `<p>${result.description}</p>` : ''}
+                        ${result.content ? `<p class="result-content">${result.content}</p>` : ''}
+                        ${result.type === 'category' ? 
+                            `<button onclick="showCategoryContent('${result.category}')" class="view-button">
+                                Lihat Detail
+                            </button>` : ''}
+                    </div>
+                `).join('') : `
+                    <div class="empty-state">
+                        <i class="fas fa-search"></i>
+                        <h3>Tidak ada hasil ditemukan</h3>
+                        <p>Coba dengan kata kunci yang berbeda</p>
+                    </div>
+                `}
+            </div>
+        </div>
+    `;
+    
+    // Buat div untuk halaman hasil pencarian jika belum ada
+    let searchPage = document.getElementById('search-results');
+    if (!searchPage) {
+        searchPage = document.createElement('div');
+        searchPage.id = 'search-results';
+        searchPage.className = 'page';
+        document.body.appendChild(searchPage);
+    }
+    
+    searchPage.innerHTML = searchResultsHTML;
+    
+    // Tampilkan halaman hasil pencarian
+    document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+    });
+    document.querySelectorAll('.nav-item').forEach(nav => {
+        nav.classList.remove('active');
+    });
+    searchPage.classList.add('active');
+}
+
+// Fungsi untuk kembali ke dashboard
+function goBackToDashboard() {
+    document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+    });
+    document.querySelectorAll('.nav-item').forEach(nav => {
+        nav.classList.remove('active');
+    });
+    document.querySelector('[data-page="dashboard"]').classList.add('active');
+    document.getElementById('dashboard').classList.add('active');
+}
+    </script>
+</body>
+</html>
